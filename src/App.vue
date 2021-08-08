@@ -1,27 +1,30 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+	<ShoppingCart :collection="cartItems" />
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import HelloWorld from './components/HelloWorld.vue';
+import { Options, Vue } from "vue-class-component";
+import { CartCollection } from "./CartItems";
+import ShoppingCart from "./components/ShoppingCart.vue";
+
+const shoppingCartItems = new CartCollection();
 
 @Options({
-  components: {
-    HelloWorld,
-  },
+	components: {
+		ShoppingCart,
+	},
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+	data() {
+		return {
+			cartItems: shoppingCartItems,
+		};
+	}
+
+	handleBroadcastEvent(event: string) {
+		console.log(`VUE: App.handleBroadcastEvent : ${event}`);
+	}
+}
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style scoped></style>
